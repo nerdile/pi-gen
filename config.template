@@ -1,0 +1,9 @@
+IMG_NAME=custom-image-name-v1
+ENABLE_SSH=1
+FIRST_USER_NAME=rpi
+WPA_ESSID="wifi ssid"
+WPA_PASSWORD=wifipassword
+WPA_COUNTRY=US
+ADMIN_USER_NAME=piadmin
+ADMIN_SSHKEY=""
+TIMEZONE="America/Los_Angeles"
