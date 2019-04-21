@@ -7,7 +7,7 @@ root_passwd=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-8})
 # Write passwords to a file.
 cat <<EOF > /pi-gen/deploy/users
 ${FIRST_USER_NAME}=${pi_passwd}
-${ADMIN_USER_NAME=${user_passwd}
+${ADMIN_USER_NAME}=${user_passwd}
 root=${root_passwd}
 EOF
 
