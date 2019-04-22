@@ -167,6 +167,10 @@ export WPA_ESSID
 export WPA_PASSWORD
 export WPA_COUNTRY
 export ENABLE_SSH="${ENABLE_SSH:-0}"
+export ADMIN_USER_NAME
+export ADMIN_SSHKEY
+export TIMEZONE
+export AUTOLOGON_USER
 
 export BASE_DIR
 

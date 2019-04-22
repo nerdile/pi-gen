@@ -20,12 +20,14 @@ echo "${ADMIN_USER_NAME}:${user_passwd}" | chpasswd
 echo "root:${root_passwd}" | chpasswd
 usermod -G users,input,video ${FIRST_USER_NAME} 
 usermod -a -G users,input,video,adm,sudo ${ADMIN_USER_NAME}
-mkdir ~${ADMIN_USER_NAME}/.ssh
+if [ ! -e ~${ADMIN_USER_NAME}/.ssh ]; then
+	mkdir ~${ADMIN_USER_NAME}/.ssh
+fi
 echo "${ADMIN_SSHKEY}" >~${ADMIN_USER_NAME}/.ssh/authorized_keys
 echo "PasswordAuthentication no">>/etc/ssh/sshd_config
 chown ${ADMIN_USER_NAME}:${ADMIN_USER_NAME} ~${ADMIN_USER_NAME}/.ssh
 chmod go-rwx ~${ADMIN_USER_NAME}/.ssh
-groupadd sshusers
+groupadd -f sshusers
 usermod -a -G sshusers ${ADMIN_USER_NAME}
 echo "AllowGroups sshusers">>/etc/ssh/sshd_config
 rm /etc/sudoers.d/010_*-nopasswd
@@ -36,6 +38,7 @@ EOF
 if [ -n "${AUTOLOGON_USER}" ]; then
 on_chroot <<EOF
 sed -i -e 's/--autologin pi/--autologin ${AUTOLOGON_USER}/g' /etc/systemd/system/autologin@.service
+rm /etc/systemd/system/getty.target.wants/getty@tty1.service
 ln -s /etc/systemd/system/autologin@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
 EOF
 fi
