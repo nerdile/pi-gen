@@ -5,7 +5,7 @@ fi
 # Disable any form of screen saver / screen blanking / power management 
 xset s off 
 xset s noblank 
-xset --dpms 
+xset -dpms 
 
 # Allow quitting the X server with CTRL-ATL-Backspace 
 setxkbmap -option terminate:ctrl_alt_bksp 
