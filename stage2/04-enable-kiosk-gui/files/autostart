@@ -5,16 +5,20 @@ fi
 # Disable any form of screen saver / screen blanking / power management 
 xset s off 
 xset s noblank 
-xset –dpms 
+xset --dpms 
 
 # Allow quitting the X server with CTRL-ATL-Backspace 
 setxkbmap -option terminate:ctrl_alt_bksp 
 
-# Start Chromium in kiosk mode 
-sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State' 
-sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences 
+KIOSK_HOME=${KIOSK_HOME:-https://www.bing.com/}
+KIOSK_DEBUG=${KIOSK_DEBUG:-file:///home/$USER/ip_addresses.txt}
 
-ip addr | grep inet >~/ip_addresses.txt
+while true; do
+	# Start Chromium in kiosk mode 
+	sed -i 's/"exited_cleanly":false/"exited_cleanly":true/' ~/.config/chromium/'Local State' 
+	sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]\+"/"exit_type":"Normal"/' ~/.config/chromium/Default/Preferences 
 
-KIOSK_HOME=${KIOSK_HOME:=file:///home/$USER/ip_addresses.txt}
-while true; do chromium-browser --disable-infobars --kiosk '$KIOSK_HOME'
+	ip addr | grep inet >~/ip_addresses.txt
+	chromium-browser --disable-infobars --incognito --kiosk "$KIOSK_HOME" "$KIOSK_DEBUG"
+done
+
