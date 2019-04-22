@@ -33,3 +33,10 @@ echo "%sudo ALL=(ALL) NOPASSWD: ALL" >/etc/sudoers.d/010_sudo-nopasswd
 chmod 0440 /etc/sudoers.d/010_sudo-nopasswd
 EOF
 
+if [ -n "${AUTOLOGON_USER}" ]; then
+on_chroot <<EOF
+sed -i -e 's/--autologin pi/--autologin ${AUTOLOGON_USER}/g' /etc/systemd/system/autologin@.service
+ln -s /etc/systemd/system/autologin@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
+EOF
+fi
+

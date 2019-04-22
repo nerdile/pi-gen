@@ -7,3 +7,5 @@ WPA_COUNTRY=US
 ADMIN_USER_NAME=piadmin
 ADMIN_SSHKEY=""
 TIMEZONE="America/Los_Angeles"
+#AUTOLOGON_USER=rpi
+
