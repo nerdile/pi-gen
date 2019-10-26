@@ -7,4 +7,4 @@ raspberrypi-sys-mods
 apt-listchanges
 rpi-update
 rng-tools
-vl806fw
+vl805fw
