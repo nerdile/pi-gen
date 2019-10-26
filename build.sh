@@ -172,6 +172,15 @@ export ADMIN_SSHKEY
 export TIMEZONE
 export AUTOLOGON_USER
 
+export LOCALE_DEFAULT="${LOCALE_DEFAULT:-en_GB.UTF-8}"
+
+export KEYBOARD_KEYMAP="${KEYBOARD_KEYMAP:-gb}"
+export KEYBOARD_LAYOUT="${KEYBOARD_LAYOUT:-English (UK)}"
+
+export TIMEZONE_DEFAULT="${TIMEZONE_DEFAULT:-Europe/London}"
+
+export GIT_HASH=${GIT_HASH:-"$(git rev-parse HEAD)"}
+
 export BASE_DIR
 
 export CLEAN
@@ -201,6 +210,8 @@ source "${SCRIPT_DIR}/common"
 # shellcheck source=scripts/dependencies_check
 source "${SCRIPT_DIR}/dependencies_check"
 
+dependencies_check "${BASE_DIR}/depends"
+
 #check username is valid
 if [[ ! "$FIRST_USER_NAME" =~ ^[a-z][-a-z0-9_]*$ ]]; then
 	echo "Invalid FIRST_USER_NAME: $FIRST_USER_NAME"
@@ -211,8 +222,6 @@ if [[ -n "${APT_PROXY}" ]] && ! curl --silent "${APT_PROXY}" >/dev/null ; then
 	echo "Could not reach APT_PROXY server: ${APT_PROXY}"
 	exit 1
 fi
-
-dependencies_check "${BASE_DIR}/depends"
 
 mkdir -p "${WORK_DIR}"
 log "Begin ${BASE_DIR}"
