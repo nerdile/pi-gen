@@ -1,3 +1,7 @@
+desktop-base
+chromium-browser rpi-chromium-mods
+fonts-droid-fallback
+fonts-liberation2
 xserver-xorg-video-fbdev xserver-xorg xinit xserver-xorg-video-fbturbo
 mousepad
 lxde lxtask menu-xdg
