@@ -10,11 +10,16 @@ if [ -v WPA_COUNTRY ]; then
 	echo "country=${WPA_COUNTRY}" >> "${ROOTFS_DIR}/etc/wpa_supplicant/wpa_supplicant.conf"
 fi
 
-if [ -v WPA_ESSID ] && [ -v WPA_PASSWORD ]; then
+if [ -v WPA_ESSID ]; then
+	if [ -v WPA_PASSWORD ]; then
 on_chroot <<EOF
 wpa_passphrase "${WPA_ESSID}" "${WPA_PASSWORD}" >> "/etc/wpa_supplicant/wpa_supplicant.conf"
 EOF
+	else
+		echo "network { ssid=\"${WPA_ESSID}\" }" >> "${ROOTFS_DIR}/etc/wpa_supplicant/wpa_supplicant.conf"
+	fi
 fi
+
 
 # Disable wifi on 5GHz models
 mkdir -p "${ROOTFS_DIR}/var/lib/systemd/rfkill/"
