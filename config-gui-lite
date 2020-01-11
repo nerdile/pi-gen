@@ -1,0 +1,8 @@
+IMG_NAME=Raspbian-ultralite-nerdile-gui-20200111
+DEPLOY_ZIP=0
+LOCALE_DEFAULT="C.UTF-8"
+KEYBOARD_KEYMAP="us"
+KEYBOARD_LAYOUT="English (US)"
+TIMEZONE_DEFAULT="America/Los_Angeles"
+STAGE_LIST="stage0 stage1 stage2 stage3"
+
